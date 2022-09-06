@@ -16,18 +16,78 @@ CPF = 168.995.350-09
 11 - (297 % 11) = 11 #   11 - (343 % 11) = 9
 11 > 9 = 0           #
                      #
-Digito 1 = 0               digito 2 = 9
 '''
 
-CPF = '168.995.350-09'
-novo = []
+while True:
+    CPF = str(input('Digite os 11 numeros do seu CPF: '))
+    novo = []
 
-for x in CPF[0:11]:
-    if not x.isnumeric():
-        ...
+    for x in CPF:
+        if not x.isnumeric():
+            ...
+        else:
+            novo += x
+    verificador_de_cpf = ''
+    for index in novo:
+        if index:
+            verificador_de_cpf += str(index)
+
+    if len(verificador_de_cpf) > 11 or len(verificador_de_cpf) < 11:
+        print(f'Por favor, colocar os 11 numeros do seu CPF, você digitou {len(verificador_de_cpf)} digitos!')
+        continue
+    elif verificador_de_cpf == verificador_de_cpf[0] * 11:
+        print('Não pode ser sequencial, CPF invalido! \t Digite outro CPF!')
+        continue
     else:
-        novo += x
+        perguta_cpf = input(f'Esse é o seu CPF:{verificador_de_cpf}, responda se sim = [s] ou não = [n]')
+        if perguta_cpf == 's':
+            print('Então vamos seguir.')
+            pass
+        elif perguta_cpf == 'n':
+            print('Então digite os 11 numeros do seu CPF novamente')
+            continue
+        else:
+            print('Não reconhecemos a sua resposta, digite novamente o eu CPF')
+            continue
+        print(verificador_de_cpf)
 
+    cpf_calculo = verificador_de_cpf[:-2]
+
+    total = 0
+    multiplicacao = 10
+    for index_cpfcalculo in range(19):
+        if index_cpfcalculo > 8:
+           index_cpfcalculo -= 9
+
+        total += int(cpf_calculo[index_cpfcalculo]) * multiplicacao
+
+        multiplicacao -= 1
+        if multiplicacao < 2:
+            multiplicacao = 11
+            digitos = 11 - (total % 11)
+
+            if digitos > 9:
+                digitos = 0
+                cpf_calculo += str(digitos)
+                total = 0
+            else:
+                cpf_calculo += str(digitos)
+                total = 0
+    break
+if verificador_de_cpf == cpf_calculo:
+    print('CPF valido!')
+else:
+    print('CPF invalido!')
+
+
+
+
+
+
+
+
+
+'''
 list2 = []
 mult1 = 10
 
@@ -69,4 +129,4 @@ comparacao = CPF.translate(str.maketrans('', '', remove))
 if comparacao == novo_cpf:
     print('Esse CPF é válido!')
 else:
-    print('Esse CPF não é valido!')
+    print('Esse CPF não é valido!')'''
